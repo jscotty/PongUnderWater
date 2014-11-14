@@ -11,6 +11,8 @@ package game
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
+	import flash.ui.Keyboard
 	
 	/**
 	 * ...
@@ -33,7 +35,10 @@ package game
 		
 		private var _pickupFactory:PickupFactory;
 		private var _pickup:Pickup;
+		private var pickup:Array;
 		private var _backGround:BG1;
+		
+		private var _pauzed:Boolean = true;
 		
 		public static var score:Number;
 		
@@ -41,6 +46,7 @@ package game
 		
 		public function Game(s:Stage) 
 		{
+			
 			st = s;
 			_backGround = new BG1();
 			addChild(_backGround);
@@ -56,32 +62,42 @@ package game
 			addChild(puffer);
 			puffer.x = 400;
 			puffer.y = 300;
+			puffer.scaleX = 0.7;
+			puffer.scaleY = 0.7;
 			
+			pickup = new Array();
+			for (var i:int = 0; i < 10; i++){
 			_pickupFactory = new PickupFactory();
 			_pickup = _pickupFactory.createPickup(PickupFactory.NORMAL_PICKUP);
+			pickup.push(_pickup);
 			addChild(_pickup);
-			_pickup.x = -50;
-			_pickup.y = 300;
-			_pickup.scaleX = 0.1;
-			_pickup.scaleY = 0.1;
-			_pickup.pickupBehaviour();
-			
+			pickup[i].x = -50 + i * -500 + Math.random() * -2000 ;
+			pickup[i].y = Math.random() * 400 + 100;
+			pickup[i].scaleX = 0.1;
+			pickup[i].scaleY = 0.1;
+			pickup[i].pickupBehaviour();
+			}
 			var mainScore:Number = Main.score;
 			score = mainScore;
 			
 			_ui = new UI();
-			_ui.x = 380;
+			_ui.x = 30;
 			_ui.y = 10;
 			addChild(_ui);
 			
-			s.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
-			s.addEventListener(KeyboardEvent.KEY_UP, keyUp);
-			addEventListener(Event.ENTER_FRAME, update);
+			eventListeners();
+			
 		}
 		
-		private function update(e:Event):void 
+		private function eventListeners():void 
 		{
 			
+			addEventListener(Event.ENTER_FRAME, update);
+			st.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			st.addEventListener(KeyboardEvent.KEY_UP, keyUp);
+		}
+		private function update(e:Event):void 
+		{
 			fence.rotation += _force;
 			
 			if (_rotatingLeft && !_rotating) {
@@ -109,15 +125,6 @@ package game
 				_force = 0;
 			}
 			
-			if (_pickup.death == true) {
-				_pickup.removeEventListener(Event.ENTER_FRAME, _pickup.update);
-				_pickup.x = 900;
-				_pickup.death = false;
-				//_pickup = null;
-				score += _pickup.score;
-				trace(score);
-			}
-			
 		}
 		
 		private function keyUp(e:KeyboardEvent):void 
@@ -139,6 +146,10 @@ package game
 			if (e.keyCode == 37) {
 				_rotatingRight = true;
 			}
+		}
+		
+		public static function points() {
+			score += Pickup._score;
 		}
 		
 	}

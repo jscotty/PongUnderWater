@@ -7,11 +7,11 @@ package assets.fences
 	 */
 	public class Normal_Fence extends PlayerFence
 	{
-		private var player:Fence;
+		private var player:FenceLvl1;
 		
 		public function Normal_Fence() 
 		{
-			player = new Fence();
+			player = new FenceLvl1();
 			addChild(player);
 		}
 		

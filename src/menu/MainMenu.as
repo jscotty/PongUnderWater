@@ -6,6 +6,9 @@ package menu
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.net.URLRequest;
 	import flash.system.fscommand;
 	/**
 	 * ...
@@ -28,8 +31,16 @@ package menu
 		
 		private var _full:FullScreen;
 		
+		private var _sound:Sound;
+		private var _channel:SoundChannel;
+		private var _buttonSound:String = "optionButton.mp3";
+		
 		public function MainMenu() 
 		{
+			_sound = new Sound();
+			_channel = new SoundChannel();
+			
+			_sound.load(new URLRequest(_buttonSound));
 			
 			_bgHow = new BGHowTo()
 			addChild(_bgHow)
@@ -111,6 +122,9 @@ package menu
 		{
 			if(e.target == _exitBtn){
 				fscommand("quit");
+				
+				_channel = _sound.play(0, 1);
+				
 			}else if(e.target == _creditsBtn){
 				_bgCredits.visible = true;
 				_bg.visible = false;
@@ -123,6 +137,8 @@ package menu
 				_optionsBtn.visible = false;
 				_howToBtn.visible = false;
 				_full.visible = false;
+				
+				_channel = _sound.play(0, 1);
 				
 			}else if(e.target == _howToBtn){
 				_bgCredits.visible = false;
@@ -137,6 +153,8 @@ package menu
 				_howToBtn.visible = false;
 				_full.visible = false;
 				
+				_channel = _sound.play(0, 1);
+				
 			}else if(e.target == _optionsBtn){
 				_bgCredits.visible = false;
 				_bg.visible = false;
@@ -150,6 +168,8 @@ package menu
 				_howToBtn.visible = false;
 				_full.visible = true;
 				
+				_channel = _sound.play(0, 1);
+				
 			}else if(e.target == _backBtn){
 				_bgCredits.visible = false;
 				_bg.visible = true;
@@ -162,6 +182,8 @@ package menu
 				_optionsBtn.visible = true;
 				_howToBtn.visible = true;
 				_full.visible = false;
+				
+				_channel = _sound.play(0, 1);
 				
 			}
 		}
