@@ -18,7 +18,7 @@ package game
 		private var font:String = "Gretoon";
 		private var levelDone:String = "levelDone";
 		
-		public static var time:int = 10;
+		public var time:int = 10;
 		public static var count:int;
 		
 		
@@ -42,9 +42,9 @@ package game
 			
 		}
 		
-		private function update(e:Event):void 
+		public function update(e:Event):void 
 		{
-			var score:int = Game.score;
+			var score:int = Main.score;
 			text.text = "score: " + score;
 			text.setTextFormat(tf);
 			text.embedFonts;

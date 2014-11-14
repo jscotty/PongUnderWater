@@ -25,7 +25,7 @@ package assets
 		private var counter:int = 0;
 		public var death:Boolean;
 		
-		public function pickupBehaviour()
+		public function pickupBehaviour() :void
 		{
 			//trace(score);
 			

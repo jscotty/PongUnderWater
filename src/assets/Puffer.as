@@ -20,8 +20,8 @@ package assets
 		private var _rotation:int;
 		private var newRot:int;
 		
-		public static var speedX:Number = 3;
-		public static var speedY:Number = 3;
+		public static var speedX:Number = 2;
+		public static var speedY:Number = 2;
 		
 		private var counter:int;
 		
@@ -91,8 +91,8 @@ package assets
 					animTime = 0;
 				}
 			}
-					speedX += 0.001;
-					speedY += 0.001;
+					speedX += 0.0004;
+					speedY += 0.0004;
 			//trace("speed! " + speedX);
 		}
 	}
