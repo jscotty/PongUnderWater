@@ -25,6 +25,8 @@ package
 		private var _channel:SoundChannel;
 		private var _soundTransform:SoundTransform;
 		
+		public static var level:int = 1;
+		
 		public static var score:Number = 0;
 		
 		public function Main():void 

@@ -14,7 +14,6 @@ package assets
 	 */
 	public class Puffer extends Sprite
 	{
-		private var _puffer:String;
 		
 		private var _velocity:Vector2D;
 		private var _newVelocity:Vector2D;
@@ -33,6 +32,9 @@ package assets
 		
 		private var tune:String = "bounce.mp3";
 		
+		public var anim:Number = 0;
+		private var animTime:int = 0;
+		
 		public function Puffer()
 		{
 			sound = new Sound();
@@ -47,7 +49,7 @@ package assets
 			addEventListener(Event.ENTER_FRAME, movement);
 		}
 		
-		private function movement(e:Event):void 
+		public function movement(e:Event):void 
 		{
 			this.rotation = _rotation;
 			//_velocity.length = speed;
@@ -75,10 +77,19 @@ package assets
 				if(counter == 1){
 					_rotation = newRot;
 					channel = sound.play(0, 1);
+					anim = 1;
 				}
 			}else { 
 				counter = 0;
 				//trace("hallo");
+			}
+			
+			if (anim == 1) {
+				animTime ++
+				if (animTime >= 40) {
+					anim = 0;
+					animTime = 0;
+				}
 			}
 					speedX += 0.001;
 					speedY += 0.001;

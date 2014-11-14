@@ -12,7 +12,7 @@ package assets
 	public class Pickup extends Sprite 
 	{
 		private var _pickup:String;
-		public var _score:Number;
+		public static var _score:Number;
 		private var speedBonus:Number;
 		
 		private var _velocity:Vector2D;
@@ -27,7 +27,7 @@ package assets
 		
 		public function pickupBehaviour()
 		{
-			trace(score);
+			//trace(score);
 			
 			_velocity = new Vector2D(speedX, speedY);
 			
@@ -48,7 +48,7 @@ package assets
 			if (_rotation >= 35) {
 				rot = -1;
 			}
-			if (_rotation <= -45) {
+			if (_rotation <= -39) {
 				rot = 1;
 			}
 			
@@ -58,6 +58,10 @@ package assets
 				counter ++;
 				if (counter == 1) {
 					done();
+					this.x += 1000;
+					
+			var GameScore:int = Game.score;
+					Game.points();
 				}
 				
 			}else { 
@@ -80,7 +84,7 @@ package assets
 
 		public function set score(score:Number):void {
 			_score = score;
-			trace("score : " +score);
+			//trace("score : " +score);
 		}
 	}
 

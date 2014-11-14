@@ -43,13 +43,27 @@ package game
 		public static var score:Number;
 		
 		private var _ui:UI;
+		private var _backGround2:BG2;
+		private var _backGround3:BG3;
+		
+		private var _levelDone:String = "levelDone";
 		
 		public function Game(s:Stage) 
 		{
 			
 			st = s;
+			if (Main.level == 1){
 			_backGround = new BG1();
 			addChild(_backGround);
+			}
+			if (Main.level == 2){
+			_backGround2 = new BG2();
+			addChild(_backGround2);
+			}
+			if (Main.level == 3){
+			_backGround3 = new BG3();
+			addChild(_backGround3);
+			}
 			
 			_fenceFactory = new FenceFactory();
 			fence = _fenceFactory.createFence(FenceFactory.NORMAL_FENCE);
@@ -125,6 +139,23 @@ package game
 				_force = 0;
 			}
 			
+			_ui.addEventListener(_levelDone, done);
+		}
+		
+		private function done(e:Event):void 
+		{
+			var length:int = pickup.length;
+			
+			for (var i:int = 0; i < length; i++) {
+				pickup[i].removeEventListener(Event.ENTER_FRAME, pickup[i].update);
+			}
+			
+			removeEventListener(Event.ENTER_FRAME, update);
+			st.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			st.removeEventListener(KeyboardEvent.KEY_UP, keyUp);
+			
+			puffer.removeEventListener(Event.ENTER_FRAME, puffer.movement);
+			trace("done");
 		}
 		
 		private function keyUp(e:KeyboardEvent):void 
