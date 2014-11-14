@@ -1,5 +1,6 @@
 package 
 {
+	import assets.buttons.StartButton;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.media.Sound;
@@ -22,6 +23,8 @@ package
 		private var _sound:Sound;
 		private var _channel:SoundChannel;
 		
+		public static var score:Number = 110;
+		
 		public function Main():void 
 		{
 			if (stage) init();
@@ -41,7 +44,8 @@ package
 			_mainMenu = new MainMenu();
 			addChild(_mainMenu);
 			
-			_mainMenu.addEventListener(_startGame, openGame);
+			var btnStart:StartButton = _mainMenu.startBtn;
+			btnStart.addEventListener(_startGame, openGame);
 		}
 		
 		private function openGame(e:Event):void 
@@ -51,6 +55,7 @@ package
 			
 			_game = new Game(stage);
 			addChild(_game);
+			
 		}
 		
 	}

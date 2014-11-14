@@ -2,6 +2,9 @@ package assets
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.net.URLRequest;
 	import game.Game;
 	import utils.Vector2D;
 	/**
@@ -17,15 +20,23 @@ package assets
 		private var _rotation:int;
 		private var newRot:int;
 		
-		public static var speedX:int = 3;
-		public static var speedY:int = 3;
+		public static var speedX:Number = 3;
+		public static var speedY:Number = 3;
 		
 		private var counter:int;
 		
+		private var sound:Sound;
+		private var channel:SoundChannel;
+		
+		private var tune:String = "optionButton.mp3";
+		
 		public function Puffer()
 		{
+			sound = new Sound();
+			channel = new SoundChannel();
 			
-			trace("new Puffer");
+			sound.load(new URLRequest(tune));
+			//trace("new Puffer");
 			
 			_rotation =  Math.random() * 360;
 			
@@ -59,15 +70,16 @@ package assets
 				counter ++;
 				if(counter == 1){
 					_rotation = newRot;
+					channel = sound.play(0, 1);
+					channel.soundTransform.volume = 10;
 				}
 			}else { 
 				counter = 0;
 				//trace("hallo");
 			}
-			
-			//trace(counter);
-			speedX += 0.1;
-			speedY += 0.1;
+					speedX += 0.001;
+					speedY += 0.001;
+			//trace("speed! " + speedX);
 		}
 		
 		public function get puffer():String

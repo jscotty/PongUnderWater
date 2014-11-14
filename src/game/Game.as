@@ -1,7 +1,9 @@
 package game 
 {
-	import assets.FenceFactory;
-	import assets.fences.PufferFactory;
+	import assets.factorys.FenceFactory;
+	import assets.factorys.PickupFactory;
+	import assets.factorys.PufferFactory;
+	import assets.Pickup;
 	import assets.PlayerFence;
 	import assets.Puffer;
 	import flash.display.MovieClip;
@@ -29,12 +31,15 @@ package game
 		private var _pufferFactory:PufferFactory;
 		private var _puffer:Puffer;
 		
+		/*private var _pickupFactory:PickupFactory;
+		private var _pickup:Pickup;*/
 		private var _backGround:BG2;
+		
+		public var score:Number;
 		
 		public function Game(s:Stage) 
 		{
 			st = s;
-			
 			_backGround = new BG2();
 			addChild(_backGround);
 			
@@ -49,6 +54,11 @@ package game
 			addChild(_puffer);
 			_puffer.x = 400;
 			_puffer.y = 300;
+			
+			//_pickupFactory = new PickupFactory();
+			
+			var mainScore:Number = Main.score;
+			score = mainScore;
 			
 			s.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			s.addEventListener(KeyboardEvent.KEY_UP, keyUp);
