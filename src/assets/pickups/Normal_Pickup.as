@@ -15,7 +15,7 @@ package assets.pickups
 			_pickup = new NormPickup();
 			addChild(_pickup);
 			
-			score = 25;
+			_score = 25;
 		}
 		
 	}

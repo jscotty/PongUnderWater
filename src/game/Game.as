@@ -29,18 +29,20 @@ package game
 		public static var fence:PlayerFence;
 		
 		private var _pufferFactory:PufferFactory;
-		private var _puffer:Puffer;
+		public static var puffer:Puffer;
 		
-		/*private var _pickupFactory:PickupFactory;
-		private var _pickup:Pickup;*/
-		private var _backGround:BG2;
+		private var _pickupFactory:PickupFactory;
+		private var _pickup:Pickup;
+		private var _backGround:BG1;
 		
-		public var score:Number;
+		public static var score:Number;
+		
+		private var _ui:UI;
 		
 		public function Game(s:Stage) 
 		{
 			st = s;
-			_backGround = new BG2();
+			_backGround = new BG1();
 			addChild(_backGround);
 			
 			_fenceFactory = new FenceFactory();
@@ -50,15 +52,27 @@ package game
 			fence.y = 300;
 			
 			_pufferFactory = new PufferFactory();
-			_puffer = _pufferFactory.createPuffer(PufferFactory.NORMAL_PUFFER);
-			addChild(_puffer);
-			_puffer.x = 400;
-			_puffer.y = 300;
+			puffer = _pufferFactory.createPuffer(PufferFactory.NORMAL_PUFFER);
+			addChild(puffer);
+			puffer.x = 400;
+			puffer.y = 300;
 			
-			//_pickupFactory = new PickupFactory();
+			_pickupFactory = new PickupFactory();
+			_pickup = _pickupFactory.createPickup(PickupFactory.NORMAL_PICKUP);
+			addChild(_pickup);
+			_pickup.x = -50;
+			_pickup.y = 300;
+			_pickup.scaleX = 0.1;
+			_pickup.scaleY = 0.1;
+			_pickup.pickupBehaviour();
 			
 			var mainScore:Number = Main.score;
 			score = mainScore;
+			
+			_ui = new UI();
+			_ui.x = 380;
+			_ui.y = 10;
+			addChild(_ui);
 			
 			s.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			s.addEventListener(KeyboardEvent.KEY_UP, keyUp);
@@ -94,6 +108,16 @@ package game
 				_rotating = false;
 				_force = 0;
 			}
+			
+			if (_pickup.death == true) {
+				_pickup.removeEventListener(Event.ENTER_FRAME, _pickup.update);
+				_pickup.x = 900;
+				_pickup.death = false;
+				//_pickup = null;
+				score += _pickup.score;
+				trace(score);
+			}
+			
 		}
 		
 		private function keyUp(e:KeyboardEvent):void 

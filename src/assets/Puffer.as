@@ -1,5 +1,6 @@
 package assets 
 {
+	import assets.puffers.Normal_Puffer;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.media.Sound;
@@ -28,7 +29,9 @@ package assets
 		private var sound:Sound;
 		private var channel:SoundChannel;
 		
-		private var tune:String = "optionButton.mp3";
+		public var fat:Boolean = false;
+		
+		private var tune:String = "bounce.mp3";
 		
 		public function Puffer()
 		{
@@ -39,6 +42,7 @@ package assets
 			//trace("new Puffer");
 			
 			_rotation =  Math.random() * 360;
+			
 			
 			addEventListener(Event.ENTER_FRAME, movement);
 		}
@@ -71,7 +75,6 @@ package assets
 				if(counter == 1){
 					_rotation = newRot;
 					channel = sound.play(0, 1);
-					channel.soundTransform.volume = 10;
 				}
 			}else { 
 				counter = 0;
@@ -80,16 +83,6 @@ package assets
 					speedX += 0.001;
 					speedY += 0.001;
 			//trace("speed! " + speedX);
-		}
-		
-		public function get puffer():String
-		{
-			return _puffer;
-		}
-		
-		public function set puffer(_fence:String):void
-		{
-			_puffer = puffer;
 		}
 	}
 

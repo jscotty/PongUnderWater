@@ -7,6 +7,7 @@ package assets.pickups
 	 */
 	public class Slow_Pickup extends Pickup
 	{
+		private var _pickup:SlowPickup;
 		
 		public function Slow_Pickup() 
 		{

@@ -5,6 +5,7 @@ package
 	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	import flash.net.URLRequest;
 	import game.Game;
 	import menu.MainMenu;
@@ -22,8 +23,9 @@ package
 		
 		private var _sound:Sound;
 		private var _channel:SoundChannel;
+		private var _soundTransform:SoundTransform;
 		
-		public static var score:Number = 110;
+		public static var score:Number = 0;
 		
 		public function Main():void 
 		{
@@ -35,9 +37,11 @@ package
 		{
 			_sound = new Sound();
 			_channel = new SoundChannel();
+			_soundTransform = new SoundTransform(0.2, 0);
 			
 			_sound.load(new URLRequest(_themeSong));
-			_channel = _sound.play(1, 9999999);
+			_channel = _sound.play(1, 9999999,_soundTransform);
+			_soundTransform.volume = 0.1;
 			
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			

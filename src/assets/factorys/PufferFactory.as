@@ -1,6 +1,7 @@
 package assets.factorys 
 {
 	import assets.Puffer;
+	import assets.puffers.Big_Puffer;
 	import assets.puffers.Normal_Puffer;
 	/**
 	 * ...
@@ -9,6 +10,7 @@ package assets.factorys
 	public class PufferFactory
 	{
 		public static const NORMAL_PUFFER:String = "normal_puffer";
+		public static const BIG_PUFFER:String = "big_puffer";
 		
 		private var _puffer:Puffer
 		
@@ -18,8 +20,10 @@ package assets.factorys
 			if (pufferType == NORMAL_PUFFER)
 			{
 				_puffer = new Normal_Puffer;
-			}else
+			}else if (pufferType == BIG_PUFFER)
 			{
+				_puffer = new Big_Puffer;
+			}else{
 				_puffer = new Puffer();
 			
 			}
